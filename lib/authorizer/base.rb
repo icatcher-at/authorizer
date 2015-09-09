@@ -68,9 +68,13 @@ module Authorizer
     end
   end
   
+  
+  
   ##
   # Gets raised when authorization goes wrong.
   #
-  class NotAuthorizedError < Exception; end
+  class NotAuthorizedError < StandardError
+    
+  end
   
 end
