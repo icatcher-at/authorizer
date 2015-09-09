@@ -5,7 +5,7 @@ Object oriented authorization for Rails applications in the YFU ecosystem.
 
 ## Installation
 
-    gem 'authorizer', github: 'icatcher-at/authorizer'
+    gem 'authorizer', tag: 'v1.0-stable', github: 'icatcher-at/authorizer'
 
 ## Authorizer Classes
 
