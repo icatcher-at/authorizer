@@ -11,7 +11,7 @@
 #     end
 #     
 #     @image = Image.find(1)
-#     authorizer = ImageAuthorizer.new(current_user, current_affiliation, @image)
+#     authorizer = ImageAuthorizer.new(current_user, current_affiliation, current_organization, @image)
 #     authorizer.download?
 #
 # To make life easier the Authorizer module offers ActionControllerExtensions to easily integrate authorization in your views and controllers.
