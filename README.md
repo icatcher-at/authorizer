@@ -11,12 +11,12 @@ Object oriented authorization for Rails applications in the YFU ecosystem.
 
 Authorization is implemented with the help of [policy objects][1]. To make an authorizer, a class should inherit from `Authorizer::Base` and implement predicate instance methods.
 
-
+```ruby
     class ImageAuthorizer < Authorizer::Base
       def download?
         user.images.include?(record)
       end
-      
+  
       def zip?
         false
       end
@@ -24,10 +24,10 @@ Authorization is implemented with the help of [policy objects][1]. To make an au
 
     @image = Image.find(1)
     authorizer = ImageAuthorizer.new(current_user, current_affiliation, current_organization, @image)
-    
+
     authorizer.download?  #=> true
     authorizer.zip?       #=> false
-
+```
 
 ## Action Controller Helpers
 
