@@ -27,6 +27,7 @@ module Authorizer
 
     # returns the record object.
     attr_reader :record
+    alias_method :object, :record
     
     # returns the Affiliation object
     attr_reader :affiliation

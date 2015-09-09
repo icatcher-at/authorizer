@@ -12,6 +12,10 @@ RSpec.describe Authorizer::Base do
     it 'include #record' do
       expect(subject.include?(:record)).to be(true)
     end
+    
+    it 'include #object' do
+      expect(subject.include?(:object)).to be(true)
+    end
   
     it 'include #affiliation' do
       expect(subject.include?(:affiliation)).to be(true)
@@ -43,6 +47,10 @@ RSpec.describe Authorizer::Base do
     
     it '#record' do
       expect(post_authorizer.record).to eq(post)
+    end
+    
+    it '#object' do
+      expect(post_authorizer.object).to eq(post)
     end
     
     
