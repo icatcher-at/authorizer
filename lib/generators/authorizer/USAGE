@@ -1,0 +1,8 @@
+Description:
+    Stubs out a new authorizer. Pass the model name, either CamelCased or under_scored.
+
+Example:
+    rails generate authorizer SomeThing
+
+    This will create:
+        app/authorizers/some_thing_authorizer.rb
