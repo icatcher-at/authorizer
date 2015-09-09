@@ -55,6 +55,12 @@ To further the magic both methods invoke the `action_name` method if the second 
       end
     end
 
+## Generator
+
+There's also a generator available that simplifies authorizer generation.
+
+    rails g authorizer Post
+    #=> app/scopers/post_authorizer.rb
 
 
 [1]: http://eng.joingrouper.com/blog/2014/03/20/rails-the-missing-parts-policies/
