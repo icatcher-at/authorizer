@@ -33,7 +33,7 @@ Authorization is implemented with the help of [policy objects][1]. To make an au
     authorizer.download?  #=> true
     authorizer.zip?       #=> false
 
-## Action Controller Helpers
+## Action Controller Extensions
 
 To make life easier the Authorizer module offers `ActionControllerExtensions` to easily integrate authorization in your views and controllers:
 
