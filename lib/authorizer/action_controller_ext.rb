@@ -25,7 +25,7 @@ module Authorizer
     #    # => ExecutablesModuleAuthorizer
     #
     def authorizer_object(record, user = current_user, affiliation = current_affiliation, organization = current_organization)
-      record.authorizer_object.new(user, affiliation, organization, record)
+      record.authorizer_class.new(user, affiliation, organization, record)
     end
 
 
