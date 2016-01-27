@@ -11,8 +11,8 @@ module Authorizer
 
     module ClassMethods
       def authorizer_class
-        prefix = respond_to?(:model_name) ? model_name : name
-        prefix << 'Module' if self.is_a?(Module)
+        prefix = (respond_to?(:model_name) ? model_name : name).to_s
+        prefix << 'Module' if is_a?(Module)
 
         authorizer_name = "#{prefix}Authorizer"
         authorizer_name.constantize
