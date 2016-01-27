@@ -5,24 +5,29 @@ module Authorizer
   #
   module ActiveRecordExtensions
 
-    def self.authorizer_class
-      prefix = respond_to?(:model_name) ? model_name : name
-      prefix << 'Module' if self.is_a?(Module)
-
-      authorizer_name = "#{prefix}Authorizer"
-      authorizer_name.constantize
-    rescue NameError => error
-      if respond_to?(:superclass) && superclass.respond_to?(:authorizer_class)
-        superclass.authorizer_class
-      else
-        raise unless error.missing_name?(authorizer_name)
-        raise Authorizer::UninferrableAuthorizerError(self)
-      end
+    module InstanceMethods
+      delegate :authorizer_class, to: :class
     end
 
-    delegate :authorizer_class, to: :class
+    module ClassMethods
+      def authorizer_class
+        prefix = respond_to?(:model_name) ? model_name : name
+        prefix << 'Module' if self.is_a?(Module)
+
+        authorizer_name = "#{prefix}Authorizer"
+        authorizer_name.constantize
+      rescue NameError => error
+        if respond_to?(:superclass) && superclass.respond_to?(:authorizer_class)
+          superclass.authorizer_class
+        else
+          raise unless error.missing_name?(authorizer_name)
+          raise Authorizer::UninferrableAuthorizerError(self)
+        end
+      end
+    end
 
   end
 end
 
-ActiveRecord::Base.send(:include, Authorizer::ActiveRecordExtensions)
+ActiveRecord::Base.send(:include, Authorizer::ActiveRecordExtensions::InstanceMethods)
+ActiveRecord::Base.send(:extend, Authorizer::ActiveRecordExtensions::ClassMethods)
