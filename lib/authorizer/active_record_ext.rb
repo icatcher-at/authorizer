@@ -12,7 +12,7 @@ module Authorizer
     module ClassMethods
       def authorizer_class
         prefix = (respond_to?(:model_name) ? model_name : name).to_s
-        prefix << 'Module' if is_a?(Module)
+        prefix << 'Module' if !respond_to?(:superclass)
 
         authorizer_name = "#{prefix}Authorizer"
         authorizer_name.constantize
@@ -21,7 +21,7 @@ module Authorizer
           superclass.authorizer_class
         else
           raise unless error.missing_name?(authorizer_name)
-          raise Authorizer::UninferrableAuthorizerError(self)
+          raise Authorizer::UninferrableAuthorizerError.new(self)
         end
       end
     end
