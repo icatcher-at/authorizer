@@ -3,7 +3,7 @@ module Authorizer
   # Adds helper methods of the Authorizer module to ActionController::Base
   #
   module ActionControllerExtensions
-    
+
     ##
     # Returns a child object of Authorizer::Base for the given +record+ object injecting a +user+ object.
     # Invokes the +current_user+ method by default if +user+ is ommited. +record+ can be of any type (object instance, class or module).
@@ -25,18 +25,10 @@ module Authorizer
     #    # => ExecutablesModuleAuthorizer
     #
     def authorizer_object(record, user = current_user, affiliation = current_affiliation, organization = current_organization)
-      if record.class == Module
-        klass = "#{record.name}Module"
-      elsif record.class == Class
-        klass = record.name
-      else
-        klass = record.class.name
-      end
-      
-      "#{klass}Authorizer".constantize.new(user, affiliation, organization, record)
+      record.authorizer_object.new(user, affiliation, organization, record)
     end
-    
-    
+
+
     ##
     # Creates an authorized object of the given +record+ object and invokes +action_name_to_authorize+
     # as a predicate method.
@@ -51,8 +43,8 @@ module Authorizer
     def authorized?(record, action_name_to_authorize)
       authorizer_object(record).public_send("#{action_name_to_authorize}?")
     end
-    
-  
+
+
     ##
     # Creates an Authorizer object of the given +record+ and invokes the +action_name_to_authorize+
     # as a predicate method on it. If +action_name_to_authorize+ is ommited it defaults to +action_name+
@@ -73,14 +65,14 @@ module Authorizer
     def authorize!(record, action_name_to_authorize = action_name)
       raise Authorizer::NotAuthorizedError unless authorized?(record, action_name_to_authorize)
     end
-    
-    
+
+
     def self.included(c) #:nodoc:
       c.helper_method :authorizer_object
       c.helper_method :authorized?
       c.helper_method :authorize!
     end
-    
+
   end
 end
 

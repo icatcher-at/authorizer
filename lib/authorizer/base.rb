@@ -9,7 +9,7 @@
 #         user.images.include?(record)
 #       end
 #     end
-#     
+#
 #     @image = Image.find(1)
 #     authorizer = ImageAuthorizer.new(current_user, current_affiliation, current_organization, @image)
 #     authorizer.download?
@@ -17,7 +17,7 @@
 # To make life easier the Authorizer module offers ActionControllerExtensions to easily integrate authorization in your views and controllers.
 #
 module Authorizer
-  
+
   ##
   # Represents the base class of any authorizer object.
   #
@@ -28,13 +28,13 @@ module Authorizer
     # returns the record object.
     attr_reader :record
     alias_method :object, :record
-    
+
     # returns the Affiliation object
     attr_reader :affiliation
-    
+
     # returns the Organization object
     attr_reader :organization
-    
+
     ##
     # Create a new Authorizer for the given +user+, +affiliation+, +organization+ and +record+.
     #
@@ -44,7 +44,7 @@ module Authorizer
       @organization = o
       @record       = r
     end
-    
+
     ##
     # Raises a RuntimeError in +development+ and +test+ environment if a method is called that
     # isn't defined on the parent class. In other environments it returns +false+,
@@ -57,10 +57,10 @@ module Authorizer
         false
       end
     end
-    
-    
+
+
     private
-    
+
     ##
     # Delegates a +permissions+ call to the +affiliations+ object.
     #
@@ -68,14 +68,5 @@ module Authorizer
       @permissions ||= affiliation.permissions
     end
   end
-  
-  
-  
-  ##
-  # Gets raised when authorization goes wrong.
-  #
-  class NotAuthorizedError < StandardError
-    
-  end
-  
+
 end
