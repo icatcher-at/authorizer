@@ -15,7 +15,7 @@ Authorization is implemented with the help of [policy objects][1]. To make an au
       # public instance methods available
       #   user          -> amounts to current_user by default
       #   organization  -> amounts to current_organization by default
-      #   affiliation   -> amountes to current_affiliation by default
+      #   affiliation   -> amountes to current_user_affiliation by default
       #   record        -> the record that is being tested, also aliased as object
     
       def download?
@@ -28,7 +28,7 @@ Authorization is implemented with the help of [policy objects][1]. To make an au
     end
 
     @image = Image.find(1)
-    authorizer = ImageAuthorizer.new(current_user, current_affiliation, current_organization, @image)
+    authorizer = ImageAuthorizer.new(current_user, current_user_affiliation, current_organization, @image)
 
     authorizer.download?  #=> true
     authorizer.zip?       #=> false
